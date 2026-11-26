@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>THEMOY SHOP • Bull Clone 100% CPM1</title>
+  <style>
+    :root {
+      --bg: #090b10;
+      --surface: #131722;
+      --surface-2: #1b2130;
+      --accent: #ec4899;
+      --accent-dark: #be185d;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: #2a3244;
+      --ok: #10b981;
+      --warn: #f59e0b;
+      --err: #ef4444;
+    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      padding: 14px;
+      display: flex;
+      justify-content: center;
+    }
+    .app { width: 100%; max-width: 480px; padding-bottom: 40px; }
+    .header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .header h1 { margin: 0; font-size: 1.15rem; color: var(--accent); letter-spacing: 0.5px; }
+    .header p { margin: 2px 0 0; font-size: 0.75rem; color: var(--muted); }
+    .badge {
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--ok);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .card h2 { margin: 0 0 10px; font-size: 1rem; color: #fff; }
+    .step-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+    .btn {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .btn:active { background: var(--accent-dark); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-ok { background: var(--ok); color: #052e16; margin-top: 8px; }
+    .btn-sec { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); margin-top: 8px; }
+    .info-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+    }
+    .info-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .info-row:last-child { margin-bottom: 0; }
+    .progress-wrap {
+      background: var(--surface-2);
+      border-radius: 999px;
+      height: 12px;
+      overflow: hidden;
+      margin: 10px 0;
+      border: 1px solid var(--border);
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--ok));
+      transition: width 0.25s ease;
+    }
+    .console {
+      background: #06080c;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 0.78rem;
+      max-height: 170px;
+      overflow-y: auto;
+      line-height: 1.45;
+      color: #cbd5e1;
+    }
+    .ok { color: var(--ok); }
+    .err { color: var(--err); }
+    .warn { color: var(--warn); }
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      background: #06080c;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--ok);
+      font-family: monospace;
+      font-size: 0.82rem;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .hidden { display: none; }
+    .bridge-box {
+      background: rgba(236, 72, 153, 0.08);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <div>
+        <h1>THEMOY SHOP • BULL CLONE</h1>
+        <p>Clonación Completa (Carros + Dinero) • @themoyshop</p>
+      </div>
+      <span class="badge" id="server-badge">Listo 100%</span>
+    </div>
+
+    <!-- PASO 1: VERIFICAR CUENTA ORIGEN -->
+    <div class="card" id="step-1-card">
+      <span class="step-tag">Paso 1 • Cuenta Origen a Clonar</span>
+      <h2>Datos de la Cuenta CPM1</h2>
+
+      <div class="bridge-box">
+        <label for="cfg-bridge" style="color:#f472b6; font-weight:700;">URL de tu Servidor Python (fps.ms)</label>
+        <input type="text" id="cfg-bridge" placeholder="http://TU-IP-FPS.MS:5000" style="margin-bottom:4px;">
+        <small style="color:var(--muted); font-size:0.72rem;">Necesario para cifrar e inyectar los carros, diseños y dinero de cpm1_core.py.</small>
+      </div>
+
+      <label for="src-email">Correo de la cuenta CPM1</label>
+      <input type="email" id="src-email" placeholder="ejemplo@gmail.com">
+
+      <label for="src-pass">Contraseña de la cuenta CPM1</label>
+      <input type="password" id="src-pass" placeholder="••••••••••••">
+
+      <button type="button" class="btn" id="btn-verify">Verificar Cuenta y Leer Garaje</button>
+    </div>
+
+    <!-- PASO 2: CANTIDAD Y DUPLICACIÓN -->
+    <div class="card hidden" id="step-2-card">
+      <span class="step-tag">Paso 2 • Garaje y Saldo Listos</span>
+      <h2>Configurar Lote de Duplicación</h2>
+
+      <div class="info-box" id="account-summary"></div>
+
+      <label for="clone-qty">Cantidad de cuentas (Máx. 1000 por cada 20 min)</label>
+      <input type="number" id="clone-qty" value="10" min="1" max="1000">
+
+      <button type="button" class="btn" id="btn-start-clone">Duplicar Todo (Carros + Dinero)</button>
+      <button type="button" class="btn btn-sec" id="btn-change-acc">Cambiar Cuenta Origen</button>
+    </div>
+
+    <!-- PROGRESO Y ARCHIVO FINAL -->
+    <div class="card hidden" id="step-3-card">
+      <span class="step-tag">Paso 3 • Clonación & Entrega</span>
+      <h2 id="proc-title">Inyectando carros, diseños y saldo...</h2>
+
+      <div class="info-row" style="font-size:0.82rem; color:var(--muted);">
+        <span id="proc-counter">0 / 1000 cuentas</span>
+        <span id="proc-timer">Ciclo: 20:00 min</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="proc-bar"></div>
+      </div>
+
+      <div id="result-box" class="hidden">
+        <textarea id="output-txt" readonly></textarea>
+        <button type="button" class="btn btn-ok" id="btn-download">Descargar Archivo (.txt)</button>
+        <button type="button" class="btn btn-sec" id="btn-copy">Copiar Todas las Cuentas</button>
+      </div>
+    </div>
+
+    <!-- CONSOLA EN VIVO -->
+    <div class="card">
+      <h2>Registro en Vivo</h2>
+      <div class="console" id="console-log">
+        <div class="ok">[Sistema] Listo. Pega la URL de tu servidor fps.ms y verifica tu cuenta origen.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const BRIDGE_KEY = "themoy_fps_bridge_url";
+      const LIMIT_PER_WINDOW = 1000;
+      const WINDOW_MINUTES = 20;
+
+      let verifiedAccount = null;
+      let generatedLines = [];
+
+      const bridgeInput = document.getElementById("cfg-bridge");
+      bridgeInput.value = localStorage.getItem(BRIDGE_KEY) || "";
+      bridgeInput.addEventListener("change", function() {
+        localStorage.setItem(BRIDGE_KEY, this.value.trim().replace(/\/$/, ""));
+      });
+
+      function log(msg, type) {
+        const box = document.getElementById("console-log");
+        const line = document.createElement("div");
+        if (type) line.className = type;
+        const now = new Date().toLocaleTimeString();
+        line.textContent = "[" + now + "] " + msg;
+        box.appendChild(line);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      document.getElementById("btn-verify").addEventListener("click", async function() {
+        const bridgeUrl = bridgeInput.value.trim().replace(/\/$/, "");
+        localStorage.setItem(BRIDGE_KEY, bridgeUrl);
+
+        const email = document.getElementById("src-email").value.trim();
+        const pass = document.getElementById("src-pass").value.trim();
+
+        if (!bridgeUrl) {
+          log("Error: Pega primero la URL de tu servidor Python (fps.ms) donde subiste server.py.", "err");
+          return;
+        }
+        if (!email || !email.includes("@")) {
+          log("Error: Ingresa un correo electrónico real válido.", "err");
+          return;
+        }
+        if (pass.length < 6) {
+          log("Error: La contraseña debe tener al menos 6 caracteres.", "err");
+          return;
+        }
+
+        const btn = this;
+        btn.disabled = true;
+        btn.textContent = "Leyendo garaje y saldo en CPM1...";
+        log("Conectando con servidor puente para verificar: " + email + "...", "warn");
+
+        try {
+          const res = await fetch(bridgeUrl + "/api/verify-account", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email, password: pass })
+          });
+
+          const data = await res.json();
+          if (!res.ok || !data.valid) {
+            throw new Error(data.error || "Credenciales rechazadas por CPM1.");
+          }
+
+          verifiedAccount = {
+            email: email,
+            password: pass,
+            name: data.name || "Jugador",
+            money: data.money || 0,
+            coin: data.coin || 0,
+            cars: data.cars || "Garaje completo",
+            designs: data.designs || "100% Diseños y tuning"
+          };
+
+          document.getElementById("account-summary").innerHTML =
+            '<div class="info-row"><span>Cuenta Origen:</span><strong style="color:#10b981;">' + verifiedAccount.email + '</strong></div>' +
+            '<div class="info-row"><span>Nombre:</span><span>' + verifiedAccount.name + '</span></div>' +
+            '<div class="info-row"><span>Dinero / Monedas:</span><span>$' + Number(verifiedAccount.money).toLocaleString() + ' / ' + Number(verifiedAccount.coin).toLocaleString() + ' coins</span></div>' +
+            '<div class="info-row"><span>Garaje:</span><span>' + verifiedAccount.cars + '</span></div>';
+
+          document.getElementById("step-1-card").classList.add("hidden");
+          document.getElementById("step-2-card").classList.remove("hidden");
+          log("✔ Cuenta verificada y garaje descargado. Lista para clonar al 100%.", "ok");
+        } catch (err) {
+          log("✖ " + err.message, "err");
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Verificar Cuenta y Leer Garaje";
+        }
+      });
+
+      document.getElementById("btn-change-acc").addEventListener("click", function() {
+        verifiedAccount = null;
+        document.getElementById("step-2-card").classList.add("hidden");
+        document.getElementById("step-3-card").classList.add("hidden");
+        document.getElementById("step-1-card").classList.remove("hidden");
+      });
+
+      document.getElementById("btn-start-clone").addEventListener("click", async function() {
+        if (!verifiedAccount) return;
+
+        const bridgeUrl = bridgeInput.value.trim().replace(/\/$/, "");
+        let qty = parseInt(document.getElementById("clone-qty").value || "0", 10);
+
+        if (isNaN(qty) || qty < 1) {
+          log("Ingresa una cantidad entre 1 y 1000.", "err");
+          return;
+        }
+        if (qty > LIMIT_PER_WINDOW) {
+          qty = LIMIT_PER_WINDOW;
+          document.getElementById("clone-qty").value = LIMIT_PER_WINDOW;
+          log("Ajustado al límite de 1000 cuentas cada 20 minutos.", "warn");
+        }
+
+        const rateData = JSON.parse(localStorage.getItem("themoy_rate_window") || '{"start":0,"count":0}');
+        const now = Date.now();
+        const windowMs = WINDOW_MINUTES * 60 * 1000;
+
+        if (now - rateData.start > windowMs) {
+          rateData.start = now;
+          rateData.count = 0;
+        }
+
+        if (rateData.count + qty > LIMIT_PER_WINDOW) {
+          const minsLeft = Math.ceil((windowMs - (now - rateData.start)) / 60000);
+          log("Límite de ciclo alcanzado. Espera " + minsLeft + " min para el siguiente lote.", "err");
+          return;
+        }
+
+        const btn = this;
+        btn.disabled = true;
+        generatedLines = [];
+
+        document.getElementById("step-3-card").classList.remove("hidden");
+        document.getElementById("result-box").classList.add("hidden");
+        document.getElementById("proc-bar").style.width = "15%";
+        document.getElementById("proc-counter").textContent = "Procesando " + qty + " cuentas...";
+        log("Inyectando carros, diseños y dinero en " + qty + " cuentas nuevas...", "warn");
+
+        try {
+          const res = await fetch(bridgeUrl + "/api/clone-batch", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              source_email: verifiedAccount.email,
+              source_password: verifiedAccount.password,
+              quantity: qty
+            })
+          });
+
+          const data = await res.json();
+          if (!res.ok || !Array.isArray(data.accounts)) {
+            throw new Error(data.error || "Error al duplicar las cuentas en el servidor.");
+          }
+
+          generatedLines = data.accounts;
+          rateData.count += generatedLines.length;
+          localStorage.setItem("themoy_rate_window", JSON.stringify(rateData));
+
+          document.getElementById("proc-bar").style.width = "100%";
+          document.getElementById("proc-counter").textContent = generatedLines.length + " / " + qty + " cuentas";
+          document.getElementById("proc-title").textContent = "¡Clonación 100% Completada!";
+          document.getElementById("output-txt").value = generatedLines.join("\n");
+          document.getElementById("result-box").classList.remove("hidden");
+
+          log("✔ " + generatedLines.length + " cuentas listas con todos los carros, diseños y dinero.", "ok");
+        } catch (err) {
+          document.getElementById("proc-bar").style.width = "0%";
+          log("✖ " + err.message, "err");
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      document.getElementById("btn-download").addEventListener("click", function() {
+        if (!generatedLines.length) return;
+        const content = generatedLines.join("\n");
+        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "THEMOYSHOP_CPM1_FULL_" + generatedLines.length + "_CUENTAS.txt";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        log("Archivo .txt descargado.", "ok");
+      });
+
+      document.getElementById("btn-copy").addEventListener("click", function() {
+        const txt = document.getElementById("output-txt");
+        txt.select();
+        txt.setSelectionRange(0, 99999);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(txt.value);
+        } else {
+          document.execCommand("copy");
+        }
+        log("Lista copiada al portapapeles.", "ok");
+      });
+    })();
+  </script>
+</body>
+</html>
